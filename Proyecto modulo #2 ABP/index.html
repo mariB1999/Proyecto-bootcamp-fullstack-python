@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Wallet - Login</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        :root {
+            --bg-color: #121212;
+            --surface-color: #1e1e2e;
+            --surface-alt: #26263a;
+            --text-color: #e8e8e8;
+            --text-muted: #9a9aa5;
+            --accent-color: #2ecc71;
+            --accent-hover: #27ae60;
+            --danger-color: #e74c3c;
+            --border-color: #33334d;
+        }
+
+        body {
+            padding: 20px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 40px auto;
+            background-color: var(--surface-color);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        h2, label { color: var(--text-color); }
+
+        .form-control {
+            background-color: var(--surface-alt);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+        }
+        .form-control::placeholder { color: var(--text-muted); }
+        .form-control:focus {
+            background-color: var(--surface-alt);
+            color: var(--text-color);
+            border-color: var(--accent-color);
+            box-shadow: none;
+        }
+
+        .btn-success {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+            color: #121212;
+        }
+        .btn-success:hover { background-color: var(--accent-hover); border-color: var(--accent-hover); }
+
+        .alert-success {
+            background-color: rgba(46, 204, 113, 0.15);
+            border-color: var(--accent-color);
+            color: #7be3a3;
+        }
+        .alert-danger {
+            background-color: rgba(231, 76, 60, 0.15);
+            border-color: var(--danger-color);
+            color: #f5a79d;
+        }
+        .close { color: var(--text-color); text-shadow: none; opacity: 0.7; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 class="text-center">Login</h2>
+
+        <div id="alert-container"></div>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" id="email" placeholder="Enter email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" class="form-control" id="password" placeholder="Enter password" required>
+            </div>
+
+            <button type="submit" class="btn btn-success btn-sm">Login</button>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Solo inicializa el balance si todavía no existe (evita resetearlo cada vez que se carga el login)
+            if (localStorage.getItem("balance") === null) {
+                localStorage.setItem("balance", 0);
+            }
+
+            $('#loginForm').submit(function (e) {
+                e.preventDefault();
+
+                let email = $('#email').val();
+                let password = $('#password').val();
+
+                if (email === "admin@admin.cl" && password === "123") {
+                    mostrarAlerta("success", "Los datos son correctos. Redirigiendo...");
+
+                    setTimeout(function () {
+                        window.location.href = "./menu.html";
+                    }, 1000);
+                } else {
+                    mostrarAlerta("danger", "Los datos son incorrectos.");
+                }
+            });
+
+            function mostrarAlerta(tipo, mensaje) {
+                $('#alert-container').html(
+                    `<div class="alert alert-${tipo} alert-dismissible fade show" role="alert">
+                        ${mensaje}
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    </div>`
+                );
+            }
+        });
+    </script>
+</body>
+</html>

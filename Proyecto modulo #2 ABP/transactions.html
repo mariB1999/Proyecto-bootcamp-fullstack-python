@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Wallet - Últimos Movimientos</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        :root {
+            --bg-color: #121212;
+            --surface-color: #1e1e2e;
+            --surface-alt: #26263a;
+            --text-color: #e8e8e8;
+            --text-muted: #9a9aa5;
+            --accent-color: #2ecc71;
+            --border-color: #33334d;
+        }
+
+        body {
+            padding: 20px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 40px auto;
+            background-color: var(--surface-color);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        h2, label { color: var(--text-color); }
+
+        .form-control {
+            background-color: var(--surface-alt);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+        }
+        .form-control:focus {
+            background-color: var(--surface-alt);
+            color: var(--text-color);
+            border-color: var(--accent-color);
+            box-shadow: none;
+        }
+
+        .list-group-item {
+            background-color: var(--surface-alt);
+            border-color: var(--border-color);
+            color: var(--text-color);
+        }
+
+        .btn-secondary {
+            background-color: var(--surface-alt);
+            border-color: var(--border-color);
+            color: var(--text-color);
+        }
+        .btn-secondary:hover { background-color: #33334d; color: var(--text-color); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Últimos Movimientos</h2>
+
+        <div class="form-group">
+            <label for="filtroTipo">Filtrar por tipo:</label>
+            <select id="filtroTipo" class="form-control">
+                <option value="todos">Todos</option>
+                <option value="compra">Compra</option>
+                <option value="deposito">Depósito</option>
+                <option value="transferencia">Transferencia recibida</option>
+            </select>
+        </div>
+
+        <ul id="listaMovimientos" class="list-group mb-3"></ul>
+
+        <a href="menu.html" class="btn btn-secondary">Volver al Menú Principal</a>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script>
+        // Lista ficticia de transacciones (reemplazar por la lista real cuando esté disponible)
+        let listaTransacciones = [
+            { tipo: "compra", monto: 50.00, fecha: "2026-07-01" },
+            { tipo: "deposito", monto: 100.00, fecha: "2026-07-02" },
+            { tipo: "transferencia", monto: 75.00, fecha: "2026-07-02" },
+            { tipo: "compra", monto: 5550.00, fecha: "2026-07-03" },
+            { tipo: "deposito", monto: 10500.00, fecha: "2026-07-04" },
+            { tipo: "transferencia", monto: 7575.00, fecha: "2026-07-05" }
+        ];
+
+        function getTipoTransaccion(tipo) {
+            switch (tipo) {
+                case "compra":
+                    return "Compra en línea";
+                case "deposito":
+                    return "Depósito";
+                case "transferencia":
+                    return "Transferencia recibida";
+                default:
+                    return "Movimiento";
+            }
+        }
+
+        function mostrarUltimosMovimientos(filtro) {
+            let lista = $('#listaMovimientos');
+            lista.empty();
+
+            let movimientosFiltrados = listaTransacciones.filter(function (t) {
+                return filtro === "todos" || t.tipo === filtro;
+            });
+
+            if (movimientosFiltrados.length === 0) {
+                lista.append('<li class="list-group-item">No hay movimientos para este filtro.</li>');
+                return;
+            }
+
+            movimientosFiltrados.forEach(function (t) {
+                lista.append(
+                    `<li class="list-group-item">${getTipoTransaccion(t.tipo)} - $${t.monto.toLocaleString()} (${t.fecha})</li>`
+                );
+            });
+        }
+
+        $(document).ready(function () {
+            mostrarUltimosMovimientos("todos");
+
+            $('#filtroTipo').on('change', function () {
+                mostrarUltimosMovimientos($(this).val());
+            });
+        });
+    </script>
+</body>
+</html>

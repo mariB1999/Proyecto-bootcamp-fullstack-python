@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Wallet - Enviar Dinero</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        :root {
+            --bg-color: #121212;
+            --surface-color: #1e1e2e;
+            --surface-alt: #26263a;
+            --text-color: #e8e8e8;
+            --text-muted: #9a9aa5;
+            --accent-color: #2ecc71;
+            --accent-hover: #27ae60;
+            --danger-color: #e74c3c;
+            --border-color: #33334d;
+        }
+
+        body {
+            padding: 20px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 40px auto;
+            background-color: var(--surface-color);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        h2, h3, label { color: var(--text-color); }
+
+        .form-control {
+            background-color: var(--surface-alt);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+        }
+        .form-control::placeholder { color: var(--text-muted); }
+        .form-control:focus {
+            background-color: var(--surface-alt);
+            color: var(--text-color);
+            border-color: var(--accent-color);
+            box-shadow: none;
+        }
+
+        .card {
+            background-color: var(--surface-alt);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-success {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+            color: #121212;
+        }
+        .btn-success:hover { background-color: var(--accent-hover); border-color: var(--accent-hover); }
+
+        .btn-secondary {
+            background-color: var(--surface-alt);
+            border-color: var(--border-color);
+            color: var(--text-color);
+        }
+        .btn-secondary:hover { background-color: #33334d; color: var(--text-color); }
+
+        .btn-outline-success {
+            color: var(--accent-color);
+            border-color: var(--accent-color);
+        }
+        .btn-outline-success:hover {
+            background-color: var(--accent-color);
+            color: #121212;
+        }
+
+        .list-group-item {
+            background-color: var(--surface-alt);
+            border-color: var(--border-color);
+            color: var(--text-color);
+        }
+
+        .contacto-item { cursor: pointer; }
+        .contacto-item.active {
+            background-color: rgba(46, 204, 113, 0.15);
+            border-color: var(--accent-color);
+        }
+
+        .alert-success {
+            background-color: rgba(46, 204, 113, 0.15);
+            border-color: var(--accent-color);
+            color: #7be3a3;
+        }
+        .alert-danger {
+            background-color: rgba(231, 76, 60, 0.15);
+            border-color: var(--danger-color);
+            color: #f5a79d;
+        }
+        .close { color: var(--text-color); text-shadow: none; opacity: 0.7; }
+
+        #confirmacionEnvio { color: var(--accent-color); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Enviar Dinero</h2>
+
+        <form id="searchForm" class="form-inline mb-3">
+            <input type="text" class="form-control mr-2" id="searchContact" placeholder="Buscar por nombre o alias">
+            <button type="submit" class="btn btn-outline-success btn-sm">Buscar</button>
+        </form>
+
+        <button id="btnMostrarForm" class="btn btn-success btn-sm mb-3">Agregar nuevo contacto</button>
+
+        <div id="formNuevoContacto" class="card card-body mb-3" style="display:none;">
+            <div id="alert-container-form"></div>
+
+            <input type="text" id="nombre" class="form-control mb-2" placeholder="Ingrese el nombre">
+            <input type="text" id="cbu" class="form-control mb-2" placeholder="Ingrese el CBU (solo números)">
+            <input type="text" id="alias" class="form-control mb-2" placeholder="Ingrese el alias">
+            <input type="text" id="banco" class="form-control mb-2" placeholder="Ingrese el banco">
+
+            <div>
+                <button id="btnGuardarContacto" class="btn btn-success btn-sm">Guardar</button>
+                <button id="btnCancelarContacto" class="btn btn-secondary btn-sm" type="button">Cancelar</button>
+            </div>
+        </div>
+
+        <h3>Contactos</h3>
+        <ul id="contactList" class="list-group mb-3">
+            <li class="list-group-item contacto-item" data-nombre="John Doe" data-alias="john.doe">
+                <input type="radio" name="contacto" class="mr-2">
+                <span class="contact-name">John Doe</span> -
+                <span class="contact-details">CBU: 123456789, Alias: john.doe, Banco: ABC Bank</span>
+            </li>
+            <li class="list-group-item contacto-item" data-nombre="Jane Smith" data-alias="jane.smith">
+                <input type="radio" name="contacto" class="mr-2">
+                <span class="contact-name">Jane Smith</span> -
+                <span class="contact-details">CBU: 987654321, Alias: jane.smith, Banco: XYZ Bank</span>
+            </li>
+        </ul>
+
+        <div id="alert-container"></div>
+
+        <button id="btnEnviarDinero" class="btn btn-success btn-sm" style="display:none;">Enviar dinero</button>
+        <a href="menu.html" class="btn btn-secondary btn-sm">Volver al Menú Principal</a>
+
+        <p id="confirmacionEnvio" class="font-weight-bold mt-3"></p>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            // Mostrar / ocultar formulario de nuevo contacto
+            $('#btnMostrarForm').on('click', function () {
+                $('#formNuevoContacto').slideDown();
+            });
+
+            $('#btnCancelarContacto').on('click', function () {
+                $('#formNuevoContacto').slideUp();
+                limpiarFormulario();
+            });
+
+            $('#btnGuardarContacto').on('click', function () {
+                let nombre = $('#nombre').val().trim();
+                let cbu = $('#cbu').val().trim();
+                let alias = $('#alias').val().trim();
+                let banco = $('#banco').val().trim();
+
+                if (!nombre || !cbu || !alias || !banco) {
+                    mostrarAlertaForm("danger", "Todos los campos son obligatorios.");
+                    return;
+                }
+
+                if (!/^\d{6,22}$/.test(cbu)) {
+                    mostrarAlertaForm("danger", "El CBU debe contener solo números (6 a 22 dígitos).");
+                    return;
+                }
+
+                let nuevoItem = $(
+                    `<li class="list-group-item contacto-item" data-nombre="${nombre}" data-alias="${alias}">
+                        <input type="radio" name="contacto" class="mr-2">
+                        <span class="contact-name">${nombre}</span> -
+                        <span class="contact-details">CBU: ${cbu}, Alias: ${alias}, Banco: ${banco}</span>
+                    </li>`
+                );
+
+                $('#contactList').append(nuevoItem);
+
+                mostrarAlertaForm("success", "Contacto agregado con éxito.");
+                limpiarFormulario();
+
+                setTimeout(function () {
+                    $('#formNuevoContacto').slideUp();
+                }, 1200);
+            });
+
+            function limpiarFormulario() {
+                $('#nombre, #cbu, #alias, #banco').val('');
+            }
+
+            function mostrarAlertaForm(tipo, mensaje) {
+                $('#alert-container-form').html(
+                    `<div class="alert alert-${tipo} alert-dismissible fade show" role="alert">
+                        ${mensaje}
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    </div>`
+                );
+            }
+
+            // Búsqueda en la agenda de transferencias
+            $('#searchForm').on('submit', function (e) {
+                e.preventDefault();
+
+                let termino = $('#searchContact').val().toLowerCase().trim();
+
+                $('.contacto-item').each(function () {
+                    let nombre = $(this).data('nombre').toString().toLowerCase();
+                    let alias = $(this).data('alias').toString().toLowerCase();
+
+                    if (nombre.includes(termino) || alias.includes(termino)) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+            });
+
+            // Selección de contacto: resalta y muestra el botón "Enviar dinero"
+            $(document).on('click', '.contacto-item', function () {
+                $('input[name="contacto"]', this).prop('checked', true);
+                $('.contacto-item').removeClass('active');
+                $(this).addClass('active');
+                $('#btnEnviarDinero').show();
+            });
+
+            $('#btnEnviarDinero').on('click', function () {
+                let seleccionado = $('.contacto-item.active');
+
+                if (seleccionado.length === 0) {
+                    mostrarAlerta("danger", "Debe seleccionar un contacto.");
+                    return;
+                }
+
+                let monto = Number(prompt("Ingrese el monto a transferir"));
+
+                if (!monto || monto <= 0) {
+                    mostrarAlerta("danger", "Monto inválido.");
+                    return;
+                }
+
+                let balance = Number(localStorage.getItem("balance")) || 0;
+
+                if (monto > balance) {
+                    mostrarAlerta("danger", "No tiene saldo suficiente.");
+                    return;
+                }
+
+                balance -= monto;
+                localStorage.setItem("balance", balance);
+
+                let nombreContacto = seleccionado.data('nombre');
+
+                $('#confirmacionEnvio').text(
+                    "Se transfirieron $" + monto.toLocaleString() + " a " + nombreContacto + " con éxito."
+                );
+                mostrarAlerta("success", "Transferencia realizada con éxito.");
+            });
+
+            function mostrarAlerta(tipo, mensaje) {
+                $('#alert-container').html(
+                    `<div class="alert alert-${tipo} alert-dismissible fade show" role="alert">
+                        ${mensaje}
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    </div>`
+                );
+            }
+        });
+    </script>
+</body>
+</html>

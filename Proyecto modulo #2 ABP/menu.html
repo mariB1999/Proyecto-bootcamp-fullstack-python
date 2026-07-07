@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Wallet - Menú Principal</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        :root {
+            --bg-color: #121212;
+            --surface-color: #1e1e2e;
+            --surface-alt: #26263a;
+            --text-color: #e8e8e8;
+            --text-muted: #9a9aa5;
+            --accent-color: #2ecc71;
+            --accent-hover: #27ae60;
+            --border-color: #33334d;
+        }
+
+        body {
+            padding: 20px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        .container {
+            max-width: 450px;
+            margin: 40px auto;
+            background-color: var(--surface-color);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        h2, h3, label { color: var(--text-color); }
+
+        .btn-success {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+            color: #121212;
+        }
+        .btn-success:hover { background-color: var(--accent-hover); border-color: var(--accent-hover); }
+
+        #leyenda { color: var(--accent-color); }
+    </style>
+</head>
+<body>
+    <div class="container text-center">
+        <h2>Menú Principal</h2>
+
+        <div class="form-group">
+            <label for="balance">Dinero en cuenta:</label>
+            <h3>$ <span id="balance"></span></h3>
+        </div>
+
+        <button id="btnDepositar" class="btn btn-success mr-2 btn-sm">Depositar</button>
+        <button id="btnEnviar" class="btn btn-success mr-2 btn-sm">Enviar Dinero</button>
+        <button id="btnMovimientos" class="btn btn-success btn-sm">Últimos Movimientos</button>
+
+        <p id="leyenda" class="mt-3 font-weight-bold"></p>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            actualizarBalance();
+
+            $('#btnDepositar').on('click', function () {
+                redirigir("Depositar", "./deposit.html");
+            });
+
+            $('#btnEnviar').on('click', function () {
+                redirigir("Enviar Dinero", "./sendmoney.html");
+            });
+
+            $('#btnMovimientos').on('click', function () {
+                redirigir("Últimos Movimientos", "./transactions.html");
+            });
+
+            function redirigir(nombrePantalla, url) {
+                $('#leyenda').text("Redirigiendo a " + nombrePantalla + "...");
+
+                setTimeout(function () {
+                    window.location.href = url;
+                }, 600);
+            }
+
+            function actualizarBalance() {
+                let balance = Number(localStorage.getItem("balance")) || 0;
+                $('#balance').text(balance.toLocaleString());
+            }
+        });
+    </script>
+</body>
+</html>

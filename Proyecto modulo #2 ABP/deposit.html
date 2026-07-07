@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Wallet - Depositar</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        :root {
+            --bg-color: #121212;
+            --surface-color: #1e1e2e;
+            --surface-alt: #26263a;
+            --text-color: #e8e8e8;
+            --text-muted: #9a9aa5;
+            --accent-color: #2ecc71;
+            --accent-hover: #27ae60;
+            --danger-color: #e74c3c;
+            --border-color: #33334d;
+        }
+
+        body {
+            padding: 20px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 40px auto;
+            background-color: var(--surface-color);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        h2, label { color: var(--text-color); }
+
+        .form-control {
+            background-color: var(--surface-alt);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+        }
+        .form-control::placeholder { color: var(--text-muted); }
+        .form-control:focus {
+            background-color: var(--surface-alt);
+            color: var(--text-color);
+            border-color: var(--accent-color);
+            box-shadow: none;
+        }
+
+        .btn-success {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+            color: #121212;
+        }
+        .btn-success:hover { background-color: var(--accent-hover); border-color: var(--accent-hover); }
+
+        .btn-secondary {
+            background-color: var(--surface-alt);
+            border-color: var(--border-color);
+            color: var(--text-color);
+        }
+        .btn-secondary:hover { background-color: #33334d; color: var(--text-color); }
+
+        .alert-success {
+            background-color: rgba(46, 204, 113, 0.15);
+            border-color: var(--accent-color);
+            color: #7be3a3;
+        }
+        .alert-danger {
+            background-color: rgba(231, 76, 60, 0.15);
+            border-color: var(--danger-color);
+            color: #f5a79d;
+        }
+        .close { color: var(--text-color); text-shadow: none; opacity: 0.7; }
+
+        #leyendaMonto { color: var(--accent-color); }
+        #saldoActual { color: var(--accent-color); font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Depositar</h2>
+
+        <p>Saldo actual: $<span id="saldoActual">0</span></p>
+
+        <div id="alert-container"></div>
+
+        <div class="form-group">
+            <label for="depositAmount">Monto a depositar:</label>
+            <input type="number" class="form-control" id="depositAmount" placeholder="Enter amount" min="1">
+
+            <button id="btnDepositar" class="btn btn-success mr-2 btn-sm mt-2">Realizar depósito</button>
+            <a href="menu.html" class="btn btn-secondary btn-sm mt-2">Volver al Menú Principal</a>
+        </div>
+
+        <p id="leyendaMonto" class="font-weight-bold"></p>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            mostrarSaldo();
+
+            $('#btnDepositar').on('click', function () {
+                depositar();
+            });
+
+            function mostrarSaldo() {
+                let balance = Number(localStorage.getItem("balance")) || 0;
+                $('#saldoActual').text(balance.toLocaleString());
+            }
+
+            function depositar() {
+                let monto = Number($('#depositAmount').val());
+
+                if (!monto || monto <= 0) {
+                    mostrarAlerta("danger", "Ingrese un monto válido.");
+                    return;
+                }
+
+                let balance = Number(localStorage.getItem("balance")) || 0;
+                balance += monto;
+
+                localStorage.setItem("balance", balance);
+
+                $('#saldoActual').text(balance.toLocaleString());
+                $('#leyendaMonto').text("Monto depositado: $" + monto.toLocaleString());
+
+                mostrarAlerta("success", "Depósito realizado con éxito. Redirigiendo al menú...");
+
+                $('#depositAmount').val('');
+
+                setTimeout(function () {
+                    window.location.href = "menu.html";
+                }, 2000);
+            }
+
+            function mostrarAlerta(tipo, mensaje) {
+                $('#alert-container').html(
+                    `<div class="alert alert-${tipo} alert-dismissible fade show" role="alert">
+                        ${mensaje}
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    </div>`
+                );
+            }
+        });
+    </script>
+</body>
+</html>
