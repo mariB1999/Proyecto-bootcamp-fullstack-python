@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Ejemplo de CSS</title>
+
+        <style>
+            body {
+                font-family: Arial, Helvetica, sans-serif;
+                margin: 0px;                                
+            }
+            h1 {
+                font-family: Verdana, Geneva, Tahoma, sans-serif;
+                padding: 10px 20px 10px 20px;
+                text-align: center;
+            }
+            p {
+                font-size: 14px;
+                padding: 10px 20px 10px 20px;
+                text-align: justify;
+            }
+            span {
+                color: rgb(255, 89, 0);
+            }
+            a {
+                text-decoration: none;
+                color: white;                 
+            }
+            a:hover {
+                font-weight: 700;                               
+            }
+            .distancia {
+                margin-bottom: 40px;
+            }
+            .borde {
+                margin: 10px;
+                border-radius: 4px;
+                border-width: 1px;
+                border-color: black;
+                border-style: solid;
+            }
+            .pie-de-pagina {
+                background-color: black;
+                text-align: center;                
+                padding: 10px 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Ejemplo de <span>CSS</span></h1>
+        <div class="borde">
+            <p>Antes de comenzar, debes tener claro un concepto clave: una página web es realmente un documento de texto. En dicho documento se escribe código HTML, con el que se que crea el contenido de una web. Por otro lado, existe el código <span>CSS</span>, que unido al código HTML permite darle forma, color, posición (y otras características visuales) a un documento web.</p>
+
+            <p class="distancia">En resumen, se trata de un «idioma» o lenguaje, como podría ser el inglés o el alemán, que los navegadores web como Chrome o Firefox conocen y pueden entender. Nuestro objetivo como diseñadores y programadores web es precisamente ese: aprender el idioma e indicarle al navegador lo que debe hacer.</p>
+        </div>
+
+        <div class="pie-de-pagina">
+            <a href="https://www.w3schools.com/css/default.asp" target="_blank">Tutorial de CSS</a>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Wallet - Depositar</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        body {
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+    <h2>Depositar</h2>
+
+    <div class="form-group">
+        <label for="depositAmount">Monto a depositar:</label>
+        <input type="number" class="form-control" id="depositAmount" placeholder="Enter amount">
+        
+        <button class="btn btn-primary" onclick="depositar();">Realizar depósito</button>
+
+        <a href="menu.html" class="btn btn-secondary">Volver al Menú Principal</a>
+    </div>
+
+    <script>
+        function depositar() {
+            let monto = Number(document.getElementById("depositAmount").value);
+
+            let balance = Number(localStorage.getItem("balance"));
+
+            localStorage.setItem("balance", balance + monto);
+
+            window.location.href = "menu.html";
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Efecto</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    
+</head>
+<body>
+    <div class="container mt-4">
+        
+        <div class="card">
+
+            <div class="card-body">
+
+                <h1>Notebook Gamer</h1>
+                <p><strong>Precio: </strong>$1.000.000</p>
+
+                <button class="btn btn-primary" id="ver">Ver Detalle</button>
+
+                <div id="detalle" class="mb-3" style="display: none;">
+
+                    <hr>
+
+                    <p><strong>Procesador: </strong>Intel Core i7</p>
+                    <p><strong>RAM: </strong>16 GB</p>
+                    <p><strong>Disco: </strong>SSD 1 TB</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $("#ver").click(function() {
+                $("#detalle").slideToggle();
+                //$("#detalle").fadeToggle();
+
+                if ($("#ver").text() == "Ver Detalle"){
+                    $("#ver").text("Ocultar Detalle");
+                }
+                else {
+                    $("#ver").text("Ver Detalle");
+                }
+            });
+        })
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Descuento tienda</title>
+</head>
+<body>
+    <div class="container p-4 bg-dark text-light">
+        <div class="row">
+            <h3 class="mb-3">Calculadora de Descuento en una Tienda</h3>
+            <p>Una tienda desea calcular el precio final de un producto después de aplicar un descuento.</p>
+            <div class="col-xs-12 col-md-6">  
+                <div class="input-group mb-3">
+                    <label class="input-group-text" for="">Ingrese el precio del producto</label>
+                    <input class="form-control" id="precioProducto" type="number">
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-6">  
+                <div class="input-group mb-3">
+                    <label class="input-group-text" for="">Porcentaje de descuento</label>
+                    <input class="form-control" id="porcentajeDescuento" type="number">
+                </div>
+            </div>            
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-md-6">
+                <div class="input-group mb-3">
+                    <button class="btn btn-info text-light" onclick="calcularPrecioFinal()">Calcular Precio Final</button>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-6">
+                <p>Su descuento es: $<span id="resultadoDescuento"></span></p>
+                <p>El precio final es: $<span id="resultadoPrecioFinal"></span></p>
+            </div>
+        </div>
+    </div>
+    
+<script>
+        function calcularPrecioFinal() {
+            let precioProducto = Number(document.getElementById("precioProducto").value);
+            let porcentajeDescuento = Number(document.getElementById("porcentajeDescuento").value);
+            let descuento = precioProducto * (porcentajeDescuento/100);
+            let precioFinal = precioProducto - descuento;
+            document.getElementById("resultadoDescuento").textContent = descuento.toLocaleString("es-CL");
+            document.getElementById("resultadoPrecioFinal").textContent = precioFinal.toLocaleString("es-CL");
+        }
+        
+    </script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>    
+</body>
+</html>

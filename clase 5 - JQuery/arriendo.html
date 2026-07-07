@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cotización de Arriendo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+
+    body{
+        background-color: #b1f5ff;
+    }
+    .container {
+      max-width: 700px;
+      margin-top:auto
+    }
+    </style>
+</head>
+
+<body>
+    <div class="container card p-4 mt-5 shadow">
+        <h1>Cotización de Arriendo de Vehículos</h1>
+        <div class="mb-3">
+            <input type="text" id="cliente" class="form-control"
+                placeholder="Nombre del Cliente">
+        </div>
+
+        <div class="mb-3">
+            <input type="number" id="dias" class="form-control"
+                placeholder="Cantidad de días">
+        </div>
+
+        <div class="mb-3">
+            <input type="number" id="valorVehiculo" class="form-control"
+                placeholder="Valor diario del vehículo">
+        </div>
+
+        <div class="mb-3">
+            <input type="number" id="valorSeguro" class="form-control"
+                placeholder="Valor diario del seguro">
+        </div>
+
+        <button id="cotizar" class="btn btn-primary btn-lg w-100">
+            Generar Cotización
+        </button>
+
+        <hr>
+
+        <p id="leyenda"></p>
+
+        <div id="resultado">
+        </div>
+
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            $("#cotizar").click(function () {
+                $("#leyenda").text("Calculando...");
+                setTimeout(function(){
+
+                // Obtener datos ingresados
+
+                let cliente = $("#cliente").val();
+                let dias = Number($("#dias").val());
+                let vehiculo = Number($("#valorVehiculo").val());
+                let seguro = Number($("#valorSeguro").val());
+
+                // Calcular valores
+
+                let totalVehiculo = dias * vehiculo;
+                let totalSeguro = dias * seguro;
+                let totalPagar = totalVehiculo + totalSeguro;
+
+                // Mostrar cotización
+                $("#resultado").hide();
+                $("#resultado").html(
+                    '<div class="card mt-4 shadow">' +
+                    '<div class="card-header bg-primary text-white">' +
+
+                    '<h3>Cotización de Arriendo</h3>' +
+                    '</div>' +
+
+                    '<div class="card-body">' +
+                    '<p><strong>Cliente:</strong> ' + cliente + '</p>' +
+                    '<p><strong>Días de arriendo:</strong> ' + dias + '</p>' +
+                    '<p><strong>Costo vehículo:</strong> $' + totalVehiculo.toLocaleString() + '</p>' +
+                    '<p><strong>Costo seguro:</strong> $' + totalSeguro.toLocaleString() + '</p>' +
+                    '<hr>' +
+                    '<h4><strong>Total a pagar:</strong> $' + totalPagar.toLocaleString() + '</h4>' +
+                    '</div>' +
+                    '</div>'
+                );
+                $("#resultado").slideDown(800);
+
+                $("#leyenda").text("Cotización lista.");
+                },1000);
+            });
+        });
+    </script>
+</body>
+</html>

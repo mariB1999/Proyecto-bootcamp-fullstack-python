@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Wallet - Enviar Dinero</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        body {
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Enviar Dinero</h2>
+
+        <div class="form-group">
+            <label for="searchContact">Buscar en la agenda de transferencias:</label>
+            <input type="text" class="form-control" id="searchContact" placeholder="Search contact">
+        </div>
+        
+        <button class="btn btn-primary" data-toggle="modal" data-target="#modalContacto">Agregar nuevo contacto</button>
+        
+        <h3>Contactos</h3>
+        <ul id="contactList" class="list-group">
+            <li class="list-group-item">
+                <input type="radio" name="contacto">
+                <div class="contact-info">
+                    <span class="contact-name">John Doe</span>
+                    <span class="contact-details">CBU: 123456789, Alias: john.doe, Banco: ABC Bank</span>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <input type="radio" name="contacto">
+                <div class="contact-info">
+                    <span class="contact-name">Jane Smith</span>
+                    <span class="contact-details">CBU: 987654321, Alias: jane.smith, Banco: XYZ Bank</span>
+                </div>
+            </li>
+        </ul>
+        
+        <button class="btn btn-primary" onclick="enviarDinero();">Enviar dinero</button>
+
+        <a href="menu.html" class="btn btn-secondary">Volver al Menú Principal</a>
+
+        <div class="modal fade" id="modalContacto">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <h5 class="modal-title">Nuevo Contacto</h5>
+                        <button class="close" data-dismiss="modal">
+                            <span>&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+
+                        <input type="text" id="nombre" class="form-control" placeholder="Ingrese el nombre">
+                        <input type="text" id="cbu" class="form-control" placeholder="Ingrese el CBU">
+                        <input type="text" id="alias" class="form-control" placeholder="Ingrese el alias">
+                        <input type="text" id="banco" class="form-control" placeholder="Ingrese el banco">
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" onclick="agregarContacto();">Guardar</button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <script>
+            function agregarContacto() {
+                let nombre = document.getElementById("nombre").value;
+                let cbu = document.getElementById("cbu").value;
+                let alias = document.getElementById("alias").value;
+                let banco = document.getElementById("banco").value;
+
+                let lista = document.getElementById("contactList");
+
+                lista.innerHTML += `<li class="list-group-item">
+                                        <input type="radio" name="contacto">
+                                        <div class="contact-info">
+                                            <span class="contact-name">${nombre}</span>
+                                            <span class="contact-details">CBU: ${cbu}, Alias: ${alias}, Banco: ${banco}</span>
+                                        </div>
+                                    </li>`;
+                alert("Contacto agregado");
+                
+                document.getElementById("nombre").value = "";
+                document.getElementById("cbu").value = "";
+                document.getElementById("alias").value = "";
+                document.getElementById("banco").value = "";
+
+                $('#modalContacto').modal('hide');
+            }
+            
+            function enviarDinero() {
+                let contactoSeleccionado = document.querySelector('input[name="contacto"]:checked');
+
+                if (contactoSeleccionado == null) {
+                    alert("Debe seleccionar un contacto");
+
+                    return;
+                }
+
+                let monto = Number(prompt("Ingrese el monto a transferir"));
+
+                let balance = Number(localStorage.getItem("balance")); 
+
+                if (monto > balance) {
+                    alert("No tiene saldo suficiente");
+
+                    return;
+                }
+
+                if (confirm("¿Está seguro de realizar la transferencia?")) {
+
+                    balance = balance - monto;
+
+                    localStorage.setItem("balance", balance);
+
+                    alert("La transferencia fue exitosa");
+                }
+            }
+
+        </script>
+
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    </div>
+</body>
+</html>

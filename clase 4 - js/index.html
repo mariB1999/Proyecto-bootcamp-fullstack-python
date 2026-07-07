@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Ejemplo de variables</title>
+    </head>
+    <body>
+        <button onclick="ejecutarCodigo();">Ejecutar</button>
+
+        <script>
+            // Declarar una variable global llamada direccion
+            // Declarando e inicializando
+            let direccion = "Avda. Principal #100";
+
+            function ejecutarCodigo() {
+                // Declarar una variable local llamada edad
+                let edad;
+                // Declarar una variable local llamada nombre
+                let nombre;
+
+                // Asigno valores en las variables
+                edad = 30;
+                nombre = "Juan";
+
+                alert(`El nombre de la persona es ${nombre} y tiene ${edad} años de edad`);
+            
+                alert(edad);
+                alert(nombre);
+                alert(direccion);
+            }
+
+            
+            
+        </script>
+    </body>
+</html>

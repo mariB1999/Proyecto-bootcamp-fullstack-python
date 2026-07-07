@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Wallet - Menú Principal</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        body {
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Menú Principal</h2>
+
+        <div class="form-group">
+            <p>Dinero en cuenta:</p>
+            <h3>$ <span id="balance"></span></h3>
+        </div>
+
+        <button class="btn btn-primary" onclick="depositar();">Depositar</button>
+        <button class="btn btn-primary" onclick="enviarDinero();">Enviar Dinero</button>
+        <button class="btn btn-primary" onclick="ultimosMovimientos();">Últimos Movimientos</button>
+
+        <p id="leyenda"></p>
+    </div>
+
+    <script>
+        // Muestra el valor contenido en la variable balance del Local Storage
+        document.getElementById("balance").textContent = Number(localStorage.getItem("balance")).toLocaleString("ES-cl");
+
+        function depositar() {
+            document.getElementById("leyenda").textContent = "Redirigiendo a Depositar...";
+
+            window.location.href = "./deposit.html";
+        }
+
+        function enviarDinero() {
+            document.getElementById("leyenda").textContent = "Redirigiendo a Enviar Dinero...";
+
+            window.location.href = "./sendmoney.html";
+        }
+
+        function ultimosMovimientos() {
+            document.getElementById("leyenda").textContent = "Redirigiendo a Últimos Movimientos...";
+
+            window.location.href = "./transactions.html";
+        }
+    </script>
+</body>
+</html>

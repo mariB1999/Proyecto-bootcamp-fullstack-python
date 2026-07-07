@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Calculadora de Pago por Horas Trabajadas</title>
+        
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+        
+        <style>
+            body {
+                background-color: rgb(207, 177, 195);
+                margin: 0;
+            }
+           .btn-color {
+                background-color: rgb(110, 0, 66);
+                color: white;
+                border-color: rgb(110, 0, 66);
+            }
+            .btn-color:hover {
+                background-color: rgb(80, 0, 48);
+                color: white;
+                border-color: rgb(80, 0, 48);
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container bg-light p-3 border shadow mt-3">
+            <div class="text-dark">
+                <h1>Sueldo por Horas Trabajadas</h1>
+                <p>En esta página podremos realizar el cálculo del sueldo basado en las horas trabajadas de un trabajador.</p>
+            </div>
+            <div class="input-group mt-3">
+                <label class="input-group-text" for="horasTrabajadas">Ingrese horas trabajadas</label><input type="number" placeholder="Agregue el número de horas trabajadas" id="horasTrabajadas" class="form-control">
+            </div>
+            <div class="input-group mt-3">
+                <label class="input-group-text" for="valorHora">Ingrese el valor por hora</label><input type="number" placeholder="Agregue el valor por hora" id="valorHora" class="form-control">
+            </div>
+
+            <div class="row mt-3 align-items-center">
+                <div class="col-6">
+                    <button class="btn btn-color" onclick="calcularSueldo();">Calcular Sueldo</button>
+                </div>
+
+                <div class="col-6">
+                    <p class="form-control">Sueldo a pagar: $<span id="sueldo"> - </span></p>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            function calcularSueldo() {
+                let horasTrabajadas, valorHora, sueldo;
+
+                horasTrabajadas = Number(document.getElementById("horasTrabajadas").value);
+                
+                valorHora = Number(document.getElementById("valorHora").value);
+                
+                sueldo = valorHora * horasTrabajadas;
+                
+                document.getElementById("sueldo").textContent = sueldo.toLocaleString("es-CL");
+            }
+        </script>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+</html>
