@@ -1,0 +1,63 @@
+# Sistema de Gestión de Datos de Empleados
+
+Aplicación de consola desarrollada en Python para registrar, listar, eliminar y exportar información de empleados.
+
+El sistema utiliza un menú interactivo que permite ejecutar distintas operaciones sobre una lista de empleados almacenada temporalmente durante la ejecución del programa.
+
+El proyecto está dividido en dos módulos principales:
+
+- `main.py`: contiene el menú y controla el flujo general de la aplicación.
+- `funciones.py`: contiene las funciones utilizadas para gestionar los empleados.
+
+## Objetivo
+
+Desarrollar un sistema sencillo de gestión de datos utilizando conceptos fundamentales de Python, como:
+
+- Entrada y salida de datos.
+- Condicionales.
+- Ciclos.
+- Funciones.
+- Listas.
+- Diccionarios.
+- Tuplas.
+- Conjuntos.
+- Módulos.
+- Exportación de datos a archivos CSV.
+
+## Funcionalidades
+
+El sistema permite:
+
+1. Agregar empleados.
+2. Listar todos los empleados registrados.
+3. Eliminar un empleado mediante su identificador.
+4. Mostrar un resumen de los datos.
+5. Exportar los empleados a un archivo CSV.
+6. Finalizar el programa desde el menú principal.
+
+## Capturas
+
+<img width="1482" height="442" alt="image" src="https://github.com/user-attachments/assets/1827086a-9781-497b-b5e1-67930cf80f35" />
+
+
+
+## Datos de cada empleado
+
+Cada empleado se almacena mediante un diccionario con los siguientes datos:
+
+- `id`: identificador del empleado.
+- `nombre`: nombre del empleado.
+- `edad`: edad del empleado.
+- `area`: área de trabajo.
+- `tecnologia`: tecnología utilizada por el empleado.
+
+Ejemplo:
+
+```python
+empleado = {
+    "id": 1,
+    "nombre": "Ana Pérez",
+    "edad": 28,
+    "area": "TI",
+    "tecnologia": "Python"
+}
