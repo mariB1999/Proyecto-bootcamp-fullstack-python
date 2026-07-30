@@ -12,8 +12,11 @@ def validar_nombre(nombre):
     return nombre.strip() != ""
 
 def validar_edad(edad):
-    edad = int(edad)
-    return edad.isdigit() and 18 <= int(edad) <= 99
+    try:
+        valor = int(edad)
+    except (TypeError, ValueError):
+        return False
+    return 18 <= valor <= 99
 
 #Se define la función de listar_empleados en donde si la lista esta vacía,el programa imprime el mensaje y sale sin continuar y sino recorre con for e imprime los datos de cada empleado.
 def listar_empleados(empleados):
@@ -37,19 +40,32 @@ def agregar_empleado(empleados, tecnologias):
         print("Error: Debe ingresar caracteres válidos.")
         return
 
-    edad= int(input("Ingrese la edad: "))
-    if not validar_edad(edad):
+    edad_input = input("Ingrese la edad: ")
+    if not validar_edad(edad_input):
         print("Error: Debe ingresar un número entero entre 18 y 99.")
         return
+    edad = int(edad_input)
 
- #Se recorre el listado de areas asignando un numero a cada valor para mostrar empezando por 1.
+    # Se recorre el listado de áreas asignando un número a cada valor para mostrar empezando por 1.
     for i, area in enumerate(AREAS, 1):
         print(f"{i} {area}")
 
-    opcion = int(input("Seleccione un área: "))
+    opcion_input = input("Seleccione un área: ")
+    if not opcion_input.isdigit():
+        print("Error: Selección inválida de área.")
+        return
+
+    opcion = int(opcion_input)
+    if opcion < 1 or opcion > len(AREAS):
+        print("Error: Selección inválida de área.")
+        return
 
     tecnologia = input("Ingrese la tecnología: ")
- #Se crea el diccionario para agregar los datos del empleado nuevo y tambien se registra tecnologias en set. 
+    if tecnologia.strip() == "":
+        print("Error: Debe ingresar una tecnología válida.")
+        return
+
+    # Se crea el diccionario para agregar los datos del empleado nuevo y tambien se registra tecnologias en set.
     empleado = {
         "id": identificador,
         "nombre": nombre,
@@ -101,10 +117,11 @@ def cargar_csv():
     with open("empleados.csv", "r", newline = "", encoding = "utf-8") as archivo:
         lector = csv.DictReader(archivo, delimiter=";")
 
-#Se recorre cada fila convirtiendo id  y edad de texto a número
+        # Se recorre cada fila convirtiendo id y edad de texto a número
         for empleado in lector:
             empleado["id"] = int(empleado["id"])
             empleado["edad"] = int(empleado["edad"])
+            tecnologias.add(empleado["tecnologia"])
 
             empleados.append(empleado)
 
