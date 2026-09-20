@@ -1,0 +1,400 @@
+:root {
+    --tinta:        #3bccfc;   /* texto principal y barra superior */
+    --tinta-suave:  #080909;   /* texto secundario */
+    --papel:        #eef6f8;   /* fondo de la página */
+    --superficie:   #abf5fa;   /* fondo de tarjetas */
+    --barra-texto: #0a0a0a; 
+    --barra-texto-suave: #373b3b;
+    --borde:        #08d3e2;
+    --acento:       #0a0a0a;   /* verde petróleo: botones y enlaces */
+    --acento-osc:   #0095a2;
+    --acento-luz:   #aaeeff;
+    --peligro:      #fc76c2;
+    --ambar:        #e0fd3b;
+ 
+    --radio:   10px;
+    --ancho:   1080px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+ 
+body {
+    margin: 0;
+    min-height: 100vh;
+    background-color: var(--papel);
+    color: var(--acento);
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+ 
+h1, h2, h3 {
+    line-height: 1.5;
+    letter-spacing: -1px;
+    margin-bottom:8px;
+}
+h1 { font-size: 32px;  font-weight: 650; }
+h2 { font-size: 24px;  font-weight: 600; }
+h3 { font-size: 20px; font-weight: 600; }
+ 
+p { margin:auto; }
+ 
+a {
+    color: var(--acento);
+    text-decoration: none;
+    font-weight: 500;
+}
+a:hover { color: var(--acento-osc); text-decoration: underline;text-decoration-style: dotted}
+ 
+:focus-visible {
+    outline: 3px solid rgba(15, 118, 110, .40);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+.container {
+    width: 100%;
+    max-width: var(--ancho);
+    margin-inline: auto;
+    padding-inline: 20px;
+}
+ 
+.page { padding-block: 32px 48px; }
+
+/*BARRA SUPERIOR*/
+.site-header {
+    background-color: var(--tinta);
+    box-shadow: 0 1px 0 var(--acento-oscuro);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+ 
+.nav {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    min-height: 62px;
+}
+ 
+.brand {
+    color: var(--barra-texto);
+    font-size: 48px;
+    font-weight: 650;
+    letter-spacing: -0.1px;
+}
+.brand:hover { color: var(--acento); text-decoration: none; opacity: 13px; }
+ 
+.nav-links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 24px;
+    color: var(--barra-texto-suave);
+    font-size: 15px;
+}
+.nav-links a { color: va(--barra-texto-suave),.78; font-weight: 400; }
+.nav-links a:hover { color: var(--barra-texto-suave) }
+ 
+.nav-links form { margin: 0; display: inline-flex; }
+ 
+.link-button {
+    background: none;
+    border: 0;
+    padding: 0;
+    font: inherit;
+    color:var(--barra-texto-suave);
+    cursor: pointer;
+}
+.link-button:hover { color: var(--barra-texto-suave); text-decoration: underline; }
+ 
+ 
+/* MENSAJES*/
+.messages { margin-bottom: 28px; }
+ 
+.message {
+    border: 1px solid var(--borde);
+    border-left: 4px solid var(--tinta-suave);
+    border-radius: var(--radio);
+    background-color: var(--superficie);
+    padding: 14px 18px;
+    margin-bottom: 10px;
+    font-size: 15px;
+}
+.message.success { border-left-color: var(--acento);  background-color: var(--acento-luz); }
+.message.error   { border-left-color: var(--peligro); background-color: #fdf0ec; }
+.message.warning { border-left-color: var(--ambar);   background-color: #fdf6e8; }
+.message.info    { border-left-color: #6b46c1;        background-color: #eef4fb; }
+ 
+ 
+/* TARJETAS Y SECCIONES*/
+.card {
+    background-color: var(--superficie);
+    border: 1px solid var(--borde);
+    border-radius: var(--radio);
+    box-shadow: var(--sombra);
+    padding: 32px;
+}
+ 
+.form-card {
+    max-width: 620px;
+    margin-inline: auto;
+}
+ 
+
+hr {
+    border: 0;
+    border-top: 1px solid var(--borde);
+    margin: 28px 0;
+}
+ 
+ 
+/* BOTONES*/
+.btn,
+button[type="submit"] {
+    display: inline-block;
+    background-color: var(--acento);
+    color: #fff;
+    border: 1px solid var(--acento);
+    border-radius: 8px;
+    padding: 10px 20px;
+    font: inherit;
+    font-weight: 550;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background-color .15s ease;
+}
+.btn:hover,
+button[type="submit"]:hover {
+    background-color: var(--acento-osc);
+    border-color: var(--acento-osc);
+    color: #fff;
+    text-decoration: none;
+}
+ 
+.nav-links button[type="submit"] {
+    background: none;
+    border: 0;
+    padding: 0;
+    color:var(--barra-texto-suave);
+    font-weight: 400;
+}
+.nav-links button[type="submit"]:hover { background: none; color:var(--barra-texto); }
+ 
+.btn-secondary {
+    display: inline-block;
+    background-color: transparent;
+    color: var(--tinta-suave);
+    border: 1px solid var(--borde);
+    border-radius: 8px;
+    padding: 10px 21px;
+    font-weight: 500;
+    font-size: 15px;
+    margin-left: 8px;
+}
+.btn-secondary:hover {
+    background-color: var(--papel);
+    color: var(--tinta);
+    text-decoration: none;
+}
+ 
+form:has(button[type="submit"]):not(:has(input:not([type="hidden"]))) button[type="submit"] {
+    background-color: var(--peligro);
+    border-color: var(--peligro);
+}
+form:has(button[type="submit"]):not(:has(input:not([type="hidden"]))) button[type="submit"]:hover {
+    background-color: #8f2d1a;
+    border-color: #8f2d1a;
+}
+ 
+ 
+/* 7. FORMULARIOS GENERADOS POR  Django */
+
+form p { margin-bottom: 18px; }
+ 
+form label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 14px;
+    font-weight: 550;
+    color: var(--tinta);
+}
+ 
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="url"],
+input[type="date"],
+select,
+textarea {
+    display: block;
+    width: 100%;
+    background-color: #fff;
+    color: var(--tinta);
+    border: 1px solid var(--borde);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font: inherit;
+    font-size: 15px;
+    transition: border-color .15s ease, box-shadow .15s ease;
+}
+ 
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--acento);
+    box-shadow: 0 0 0 3px #0b736b7c;
+}
+ 
+textarea { min-height: 120px; resize: vertical; }
+ 
+select {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%235d6b7a' d='M4.5 6.5 8 10l3.5-3.5z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 11px center;
+    background-size: 18px;
+    padding-right: 35px;
+}
+ 
+.helptext {
+    display: block;
+    margin-top: 6px;
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--tinta-suave);
+}
+.helptext ul { margin: 5px 0 0; padding-left: 18px; }
+ 
+/* Errores de validación */
+ul.errorlist {
+    list-style: none;
+    margin: 0 0 8px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    background-color: #fdf0ec;
+    border: 1px solid #f2c9be;
+    color: var(--peligro);
+    font-size: 14px;
+}
+ul.errorlist.nonfield { margin-bottom: 20px; }
+ 
+ 
+/* PANTALLAS DE INICIO DE SESIÓN Y REGISTRO*/
+main.page:has(input[name="password"]),
+main.page:has(input[name="password1"]) {
+    /* ocupamos el alto disponible restando la barra superior */
+    min-height: calc(100vh - 62px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 480px;
+    padding-block: 48px;
+}
+ 
+main.page:has(input[name="password"]) form,
+main.page:has(input[name="password1"]) form {
+    background-color: var(--superficie);
+    border: 1px solid var(--borde);
+    border-radius: 14px;
+    box-shadow: var(--sombra);
+    padding: 32px 32px 36px;
+    border-top: 3px solid var(--acento);
+}
+ 
+main.page:has(input[name="password"]) h1,
+main.page:has(input[name="password1"]) h1 {
+    font-size: 26px;
+    text-align: center;
+    margin-bottom: 24px;
+}
+ 
+main.page:has(input[name="password"]) button[type="submit"],
+main.page:has(input[name="password1"]) button[type="submit"] {
+    width: 100%;
+    padding-block: 12px;
+    margin-top: 8px;
+}
+ 
+/* El párrafo final ("¿No tienes cuenta?") queda como pie centrado */
+main.page:has(input[name="password"]) > p:last-child {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 0;
+    font-size: 15px;
+    color: var(--tinta-suave);
+}
+ 
+body:has(input[name="password"]),
+body:has(input[name="password1"]) {
+    background-color: var(--papel);
+    background-image:
+        radial-gradient(960px 480px at 50% -160px, #0f766e1a, transparent 70%);
+}
+  
+/* LISTADO DE PROYECTOS Y DETALLE*/
+ 
+.page a:not(.btn):not(.btn-secondary) {
+    display: inline-block;
+    border: 1px solid var(--borde);
+    border-radius: 8px;
+    padding: 6px 14px;
+    margin-right: 6px;
+    margin-bottom: 6px;
+    background-color: var(--superficie);
+    color: var(--acento);
+    font-size: 14px;
+}
+.page a:not(.btn):not(.btn-secondary):hover {
+    background-color: var(--acento-luz);
+    border-color: var(--acento);
+    text-decoration: none;
+}
+ 
+.page h3 { margin-top: 24px; }
+ 
+.page ul {
+    list-style: none;
+    margin: 16px 0 0;
+    padding: 0;
+    background-color: var(--superficie);
+    border: 1px solid var(--borde);
+    border-radius: var(--radio);
+    box-shadow: var(--sombra);
+    overflow: hidden;
+}
+.page ul li {
+    padding: 18px 21px;
+    border-bottom: 1px solid var(--borde);
+}
+.page ul li:last-child { border-bottom: 0; }
+.page ul li strong { font-size: 16px; }
+ 
+
+.page ul.errorlist,
+.page .helptext ul {
+    background: #fdf0ec;
+    box-shadow: none;
+    border-radius: 8px;
+}
+.page .helptext ul { background: none; border: 0; padding-left: 18px; }
+ 
+ 
+/*  RESPONSIVE*/
+@media (max-width: 640px) {
+    .nav { padding-block: 12px; }
+    .nav-links { gap: 14px; font-size: 14px; }
+    .card { padding: 24px; }
+    h1 { font-size: 24px; }
+    .btn, .btn-secondary, button[type="submit"] { width: 100%; margin: .6px 0 0; }
+    .page a:not(.btn):not(.btn-secondary) { margin-right: 5px; }
+}
+ 
+@media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+}

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Formulario de tarea{% endblock %}
+
+{% block content %}
+<section class="card form-card">
+    <h1>{{ titulo }}</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn" type="submit">{{ boton }}</button>
+        <a class="btn-secondary" href="{% url 'proyecto_detail' proyecto.pk %}">Cancelar</a>
+    </form>
+</section>
+{% endblock %}
