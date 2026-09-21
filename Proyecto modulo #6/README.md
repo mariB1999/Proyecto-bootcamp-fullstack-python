@@ -38,7 +38,7 @@ Aplicación web desarrollada en **Django** para administrar proyectos personales
 
 - [Python 3.12+](https://www.python.org/)
 - [Django 6.1](https://www.djangoproject.com/)
-- SQLite (base de datos por defecto, incluida con Django)
+- MySQL
 - HTML5 + CSS (plantillas de Django)
 ---
 
