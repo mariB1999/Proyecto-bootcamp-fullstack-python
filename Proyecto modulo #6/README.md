@@ -6,28 +6,13 @@ Aplicación web desarrollada en **Django** para administrar proyectos personales
 
 ---
 
-## Tabla de contenidos
-
-- [Funcionalidades principales](#-funcionalidades-principales)
-- [Capturas de pantalla](#-capturas-de-pantalla)
-- [Tecnologías utilizadas](#-tecnologías-utilizadas)
-- [Estructura del proyecto](#-estructura-del-proyecto)
-- [Instalación](#-instalación)
-- [Uso](#-uso)
-- [Validaciones personalizadas](#-validaciones-personalizadas)
-- [Pruebas](#-pruebas)
-- [Evidencia de funcionamiento](#-evidencia-de-funcionamiento)
-- [Correcciones aplicadas](#-correcciones-aplicadas-sobre-la-versión-original)
-
----
-
 ## ✨ Funcionalidades principales
 
 - **Autenticación de usuarios**: registro, inicio de sesión y cierre de sesión.
 - **Gestión de proyectos (CRUD)**: crear, listar, ver el detalle, editar y eliminar proyectos.
 - **Gestión de tareas (CRUD)**: crear, editar y eliminar tareas dentro de un proyecto, con 3 estados posibles: `Pendiente`, `En proceso`, `Finalizado`.
 - **Privacidad de datos**: cada usuario solo puede ver y modificar sus propios proyectos y tareas (aislamiento por usuario a nivel de consultas).
-- **Validaciones personalizadas** en los formularios de registro, proyecto y tarea (ver [detalle más abajo](#-validaciones-personalizadas)).
+- **Validaciones personalizadas** en los formularios de registro, proyecto y tarea.
 - **Mensajes de confirmación** (Django messages) al crear, actualizar o eliminar un registro.
 - **Panel de administración** de Django para gestionar proyectos y tareas desde `/admin/`.
 
@@ -37,12 +22,12 @@ Aplicación web desarrollada en **Django** para administrar proyectos personales
 
 | Pantalla | Descripción |
 |---|---|
-| `docs/screenshots/01_registro.png` | Formulario de registro de usuario |
-| `docs/screenshots/03_validacion_nombre_invalido.png` | Validación personalizada: nombre de proyecto inválido |
-| `docs/screenshots/04_proyecto_creado.png` | Proyecto creado correctamente |
-| `docs/screenshots/05_validacion_finalizado_sin_descripcion.png` | Validación personalizada: no se puede finalizar una tarea sin descripción |
-| `docs/screenshots/06_detalle_proyecto_con_tarea.png` | Detalle de proyecto con tarea finalizada |
-| `docs/screenshots/08_login.png` | Formulario de inicio de sesión |
+| | Formulario de registro de usuario |
+| | Validación personalizada: nombre de proyecto inválido |
+|  | Proyecto creado correctamente |
+|  | Validación personalizada: no se puede finalizar una tarea sin descripción |
+| | Detalle de proyecto con tarea finalizada |
+| | Formulario de inicio de sesión |
 ---
 
 ## 🛠 Tecnologías 
@@ -51,8 +36,6 @@ Aplicación web desarrollada en **Django** para administrar proyectos personales
 - [Django 6.1](https://www.djangoproject.com/)
 - SQLite (base de datos por defecto, incluida con Django)
 - HTML5 + CSS (plantillas de Django)
-- [Playwright](https://playwright.dev/python/) (solo como herramienta de desarrollo, para generar capturas de pantalla automáticas)
-
 ---
 
 ## 📂 Estructura del proyecto
