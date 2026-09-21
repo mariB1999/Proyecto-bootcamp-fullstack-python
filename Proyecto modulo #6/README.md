@@ -30,7 +30,8 @@ Aplicación web desarrollada en **Django** para administrar proyectos personales
  | Validación personalizada: no se puede finalizar una tarea sin descripción |
 |<img width="2294" height="772" alt="Captura de pantalla 2026-09-21 181414" src="https://github.com/user-attachments/assets/10e568a2-557a-4903-98a7-bf5617b1845c" />
  | Detalle de proyecto con tarea finalizada |
-| | Formulario de inicio de sesión |
+|<img width="2297" height="1011" alt="Captura de pantalla 2026-09-21 182059" src="https://github.com/user-attachments/assets/3ae197db-5882-4303-811d-6bd252acd2f4" />
+ | Formulario de inicio de sesión |
 ---
 
 ## 🛠 Tecnologías 
