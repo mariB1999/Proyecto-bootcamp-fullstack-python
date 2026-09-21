@@ -22,11 +22,14 @@ Aplicación web desarrollada en **Django** para administrar proyectos personales
 
 | Pantalla | Descripción |
 |---|---|
-| | Formulario de registro de usuario |
-| | Validación personalizada: nombre de proyecto inválido |
-|  | Proyecto creado correctamente |
-|  | Validación personalizada: no se puede finalizar una tarea sin descripción |
-| | Detalle de proyecto con tarea finalizada |
+|<img width="2280" height="1301" alt="Captura de pantalla 2026-09-21 180837" src="https://github.com/user-attachments/assets/ddaa1920-6d46-478e-be81-332e2b539f72" />
+  | Formulario de registro de usuario |
+| <img width="2311" height="672" alt="Captura de pantalla 2026-09-21 181115" src="https://github.com/user-attachments/assets/8047e914-babc-454b-9164-f63110ccc785" />
+ | Proyecto creado correctamente |
+| <img width="2299" height="950" alt="Captura de pantalla 2026-09-21 181247" src="https://github.com/user-attachments/assets/b7742ecb-160f-4333-9728-4db6d72c7fbc" />
+ | Validación personalizada: no se puede finalizar una tarea sin descripción |
+|<img width="2294" height="772" alt="Captura de pantalla 2026-09-21 181414" src="https://github.com/user-attachments/assets/10e568a2-557a-4903-98a7-bf5617b1845c" />
+ | Detalle de proyecto con tarea finalizada |
 | | Formulario de inicio de sesión |
 ---
 
