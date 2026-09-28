@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+
+{% block title %}{{ titulo }} | Alke Wallet{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center g-3">
+
+    <!-- Datos del cliente -->
+    <div class="col-md-5">
+        <div class="card shadow-sm">
+            <div class="card-body p-4">
+                <h1 class="h4">{{ cliente.nombre }}</h1>
+
+                <p class="text-muted">
+                    <strong>Email:</strong> {{ cliente.email }}
+                </p>
+
+                <p class="mb-1">
+                    <strong>Teléfono:</strong>
+                    {{ cliente.telefono|default:"No registrado" }}
+                </p>
+
+                <p class="mb-3">
+                    <strong>Cliente desde:</strong>
+                    {{ cliente.fecha_registro|date:"d/m/Y H:i" }}
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Datos de la cuenta -->
+    <div class="col-md-7">
+        <div class="card shadow-sm h-100">
+            <div class="card-body p-4">
+                <h2 class="h5 mb-3">Cuenta</h2>
+
+                {% if cuenta %}
+                    <div class="card card-saldo mb-3">
+                        <div class="card-body py-3">
+                            <p class="mb-1">Saldo actual</p>
+                            <p class="saldo-monto mb-0">
+                                ${{ cuenta.saldo|floatformat:2 }}
+                            </p>
+                        </div>
+                    </div>
+
+                    <p class="mb-1">
+                        <strong>Número de cuenta:</strong>
+                        {{ cuenta.numero }}
+                    </p>
+
+                    <p class="mb-1">
+                        <strong>Fecha de creación:</strong>
+                        {{ cuenta.fecha_creacion|date:"d/m/Y H:i" }}
+                    </p>
+
+                    <p class="mb-3">
+                        <strong>Contactos autorizados:</strong>
+                        {% with contactos=cuenta.contactos_autorizados.all %}
+                            {% if contactos %}
+                                {{ contactos|join:", " }}
+                            {% else %}
+                                Ninguno
+                            {% endif %}
+                        {% endwith %}
+                    </p>
+
+                    <a href="{% url 'crear_transaccion' cuenta_pk=cuenta.pk %}"
+                       class="btn btn-primary btn-sm">
+                        Registrar movimiento
+                    </a>
+                {% else %}
+                    <p class="text-muted mb-3">
+                        Este cliente aún no tiene una cuenta asociada.
+                    </p>
+
+                    <a href="{% url 'crear_cuenta' cliente_pk=cliente.pk %}"
+                       class="btn btn-primary btn-sm">
+                        Crear cuenta
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Transacciones -->
+<div class="card shadow-sm mt-3">
+    <div class="card-body p-4">
+        <h2 class="h5 mb-3">Transacciones</h2>
+
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Tipo</th>
+                        <th>Descripción</th>
+                        <th class="text-end">Monto</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for movimiento in movimientos %}
+                        <tr>
+                            <td>{{ movimiento.fecha|date:"d/m/Y H:i" }}</td>
+                            <td>
+                                {% if movimiento.tipo == "ingreso" %}
+                                    <span class="badge badge-ingreso">
+                                        Ingreso
+                                    </span>
+                                {% else %}
+                                    <span class="badge badge-egreso">
+                                        Egreso
+                                    </span>
+                                {% endif %}
+                            </td>
+                            <td>{{ movimiento.descripcion }}</td>
+                            <td class="text-end">
+                                ${{ movimiento.monto|floatformat:2 }}
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="4" class="text-center text-muted">
+                                {% if cuenta %}
+                                    Esta cuenta aún no tiene transacciones.
+                                {% else %}
+                                    Este cliente no tiene cuenta.
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

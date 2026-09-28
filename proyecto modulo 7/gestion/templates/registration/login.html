@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Ingresar a Alke Wallet{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-4">
+        <div class="card shadow-sm">
+            <div class="card-body p-4">
+                <h1 class="h4 mb-2">Iniciar sesión</h1>
+
+                {% if form.errors %}
+                    <div class="alert alert-danger">Usuario/contraseña incorrectos</div>
+                {% endif %}
+
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit">Guardar</button>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
